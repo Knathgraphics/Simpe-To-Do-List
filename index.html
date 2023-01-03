@@ -48,16 +48,6 @@
 </div>
 
 
-<p class="count display-1 text-center mt-5 mb-5" data-stop="100" data-speed="800" id="count">
-    <script>
-       document.getElementById('count').innerText = localStorage.getItem('counter');
-       if(Start == Stop){
-        document.getElementById('count').innerText = Stop;
-        localStorage.removeItem('counter');
-       }
-    </script>
-    
-</p>
 
 
 
@@ -65,25 +55,25 @@
 
 
 <script>
-    var Stop = +document.getElementById('count').getAttribute('data-stop');
-    var Speed = +document.getElementById('count').getAttribute('data-speed');
-    var Start = +document.getElementById('count').innerText;
+//     var Stop = +document.getElementById('count').getAttribute('data-stop');
+//     var Speed = +document.getElementById('count').getAttribute('data-speed');
+//     var Start = +document.getElementById('count').innerText;
     
-function Count(){
-    document.getElementById('count').innerText = Start++;
-   localStorage.setItem('counter',Start);
-    if(Start >= Stop){
-        document.getElementById('count').innerText = Start++;
-       localStorage.setItem('counter',Start);
-        var clear = clearInterval(interval);
-    }
-}
+// function Count(){
+//     document.getElementById('count').innerText = Start++;
+//    localStorage.setItem('counter',Start);
+//     if(Start >= Stop){
+//         document.getElementById('count').innerText = Start++;
+//        localStorage.setItem('counter',Start);
+//         var clear = clearInterval(interval);
+//     }
+// }
 
-var interval = setInterval(Count,Speed);
-function reset(){
-    document.getElementById('newlist').innerHTML = "";
-    localStorage.removeItem('innerHtml');
-}
+// var interval = setInterval(Count,Speed);
+// function reset(){
+//     document.getElementById('newlist').innerHTML = "";
+//     localStorage.removeItem('innerHtml');
+// }
 
 document.getElementById('texts').addEventListener('keypress', function(e){
     if(e.charCode == 13){
