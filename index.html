@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/bootstrap.bundle.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    
+<div class="container mx-auto p-5 bg-success rounded mt-5 shadow-lg" id="main">
+    <H3 class="text-center text-white mb-4">TO-DO LIST</H3>
+    <div class="container-fluid bg-info rounded shadow-lg py-4">
+        <div class="card-group p-4 row-cols-1">
+        <div class="card mx-2 p-4" id="worktd">
+            <div class="container-fluid d-flex justify-content-between mb-3 p-0 m-0">
+              <h5>Work To Do</h5>
+              <button class="btn btn-success btn-sm shadow-none border-0" onclick="reset()">Reset</button>  
+            </div>
+            
+            <div class="input-group">
+             <input type="text" class="form-control shadow-none border border-success" id="texts">  
+             <span class="input-group-text btn btn-success" id="add" onclick="adder()">&plus;</span> 
+            </div>
+
+            <div class="newlist" id="newlist" style="font-size: 9pt;">
+                <script>
+                   document.getElementById('newlist').innerHTML = localStorage.getItem('innerHtml');
+                </script>
+            </div>
+            
+            
+        </div>
+        <div class="card mx-2 p-4 bg-none" id="card2">
+            <h5>Currently Working on</h5>
+            <div class="newlist" id="newlist2" style="font-size: 8pt;"></div>
+            
+        </div>
+        <div class="card mx-2 p-4">
+            <h5>Already Done</h5>
+            
+            
+        </div>
+        </div>
+    </div>
+</div>
+
+
+<p class="count display-1 text-center mt-5 mb-5" data-stop="100" data-speed="800" id="count">
+    <script>
+       document.getElementById('count').innerText = localStorage.getItem('counter');
+       if(Start == Stop){
+        document.getElementById('count').innerText = Stop;
+        localStorage.removeItem('counter');
+       }
+    </script>
+    
+</p>
+
+
+
+
+
+
+<script>
+    var Stop = +document.getElementById('count').getAttribute('data-stop');
+    var Speed = +document.getElementById('count').getAttribute('data-speed');
+    var Start = +document.getElementById('count').innerText;
+    
+function Count(){
+    document.getElementById('count').innerText = Start++;
+   localStorage.setItem('counter',Start);
+    if(Start >= Stop){
+        document.getElementById('count').innerText = Start++;
+       localStorage.setItem('counter',Start);
+        var clear = clearInterval(interval);
+    }
+}
+
+var interval = setInterval(Count,Speed);
+function reset(){
+    document.getElementById('newlist').innerHTML = "";
+    localStorage.removeItem('innerHtml');
+}
+
+document.getElementById('texts').addEventListener('keypress', function(e){
+    if(e.charCode == 13){
+        adder(); 
+    }
+});
+
+
+function adder(){
+  var input =  document.getElementById('texts').value;
+
+if(input.length > 4){
+   document.getElementById('texts').value = "";
+
+   
+    document.getElementById('newlist').innerHTML += "<div class='mt-2 bg-info rounded align-items-center p-2 d-flex justify-content-between py-2' style='cursor:grab;' id='listdiv'>"+ input+" <button class='btn btn-danger btn-sm shadow-none outline-none text-white o'>&times;</button></div>";
+
+   localStorage.setItem("innerHtml", document.getElementById('newlist').innerHTML);
+
+
+    // document.getElementById('newlist').innerHTML += "<div class='mt-2 bg-info rounded align-items-center p-2 d-flex justify-content-between py-2' style='cursor:grab;' id='listdiv'>"+ input+" <button class='btn btn-danger btn-sm shadow-none outline-none text-white o'>&times;</button></div>";
+    
+   // document.getElementById('newlist').innerHTML += localStorage.getItem('innerHtml');
+    document.getElementById('texts').focus(); 
+}
+
+        
+}
+
+document.getElementById('listdiv').addEventListener('drag',function(){
+    document.getElementById('listdiv').style.position = "relative";
+    document.getElementById('newlist').innerHTML = "";
+
+})
+
+document.getElementById('card2').addEventListener('dragenter',function(){
+    document.getElementById('newlist2').innerHTML += document.getElementById('listdiv').innerHTML;
+
+})
+
+
+
+
+</script>
+
+
+</body>
+</html>
